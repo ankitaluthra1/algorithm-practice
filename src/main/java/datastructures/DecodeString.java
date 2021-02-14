@@ -24,7 +24,7 @@ public class DecodeString {
                 }
                 int repetition = Integer.parseInt(repetitionString.toString());
                 StringBuilder decodedPart = new StringBuilder();
-                decodedPart.append(String.valueOf(sg).repeat(Math.max(0, repetition)));
+//                decodedPart.append(String.valueOf(sg).repeat(Math.max(0, repetition)));
                 stack.add(decodedPart.toString());
             }else {
                 stack.add(ch+"");
