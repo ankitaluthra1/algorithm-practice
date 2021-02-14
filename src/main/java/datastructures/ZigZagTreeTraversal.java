@@ -34,31 +34,22 @@ public class ZigZagTreeTraversal {
 
         while (!queue.isEmpty()) {
 
-            List<TreeNode> nextLevelNodes = new ArrayList<>();
             List<Integer> currentList = new ArrayList<>();
+            int size = queue.size();
 
-            while (!queue.isEmpty()) {
+            for (int i = 0; i < size; i++) {
                 TreeNode node = queue.remove(0);
-                currentList.add(node.val);
+                if (leftToRight)
+                    currentList.add(node.val);
+                else
+                    currentList.add(0, node.val);
                 if (node.left != null)
-                    nextLevelNodes.add(node.left);
+                    queue.add(node.left);
                 if (node.right != null)
-                    nextLevelNodes.add(node.right);
+                    queue.add(node.right);
             }
 
-            queue.addAll(nextLevelNodes);
-
-            List<Integer> currentOutput = new ArrayList<>();
-
-            if (leftToRight) {
-                currentOutput.addAll(currentList);
-            } else {
-                for (int i = currentList.size() - 1; i >= 0; i--) {
-                    currentOutput.add(currentList.get(i));
-                }
-            }
-
-            output.add(currentOutput);
+            output.add(currentList);
             leftToRight = !leftToRight;
 
         }
@@ -68,7 +59,7 @@ public class ZigZagTreeTraversal {
 
     public static void main(String[] args) {
 
-        Integer[] input = {3};
+        Integer[] input = {3,9,20,null,null,15,7};
         TreeNode treeNode = constructTree(input, 0);
 
         ZigZagTreeTraversal zg = new ZigZagTreeTraversal();
