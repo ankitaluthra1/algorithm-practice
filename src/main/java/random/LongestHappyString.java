@@ -19,7 +19,7 @@ public class LongestHappyString {
                 throw new IllegalStateException("Count cannot be less than 1");
             }
 
-            int maxCount = count > 2 ? 2 : 1;
+            int maxCount = count >= 2 ? 2 : 1;
             this.count = this.count - maxCount;
             StringBuilder sg = new StringBuilder("");
             for (int i = 0; i < maxCount; i++) {
@@ -93,7 +93,7 @@ public class LongestHappyString {
     public static void main(String[] args) {
         LongestHappyString lg = new LongestHappyString();
 
-        String result = lg.longestDiverseString(7, 1, 0);
+        String result = lg.longestDiverseString(6, 1, 1);
 
         System.out.println(result);
     }
