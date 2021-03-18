@@ -3,6 +3,8 @@ package leetcode.datastructures;
 import java.util.ArrayList;
 import java.util.List;
 
+//https://leetcode.com/problems/decode-string/
+
 public class DecodeString {
 
     public String decodeString(String input) {
@@ -24,7 +26,9 @@ public class DecodeString {
                 }
                 int repetition = Integer.parseInt(repetitionString.toString());
                 StringBuilder decodedPart = new StringBuilder();
-//                decodedPart.append(String.valueOf(sg).repeat(Math.max(0, repetition)));
+                for (int i = 0; i < repetition; i++){
+                    decodedPart.append(sg);
+                }
                 stack.add(decodedPart.toString());
             }else {
                 stack.add(ch+"");

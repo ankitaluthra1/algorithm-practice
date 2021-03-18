@@ -1,11 +1,23 @@
 package leetcode.datastructures;
 
-import leetcode.random.TreeNode;
-import leetcode.random.DiagonalTree;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+//https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
 
 public class KDistanceBinaryTree {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
 
     Map<TreeNode, TreeNode> edges = new HashMap<>();
     List<Integer> output;
@@ -27,11 +39,11 @@ public class KDistanceBinaryTree {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 TreeNode curr = queue.remove(0);
-                if (visited.contains(curr))
+                if (visited.contains(curr) || curr == null)
                     continue;
                 visited.add(curr);
                 if (level == k) {
-                    output.add(curr.value);
+                    output.add(curr.val);
                     continue;
                 }
                 queue.add(curr.left);
@@ -52,17 +64,6 @@ public class KDistanceBinaryTree {
             edges.put(root.right, root);
             calculateEdges(root.right, edges);
         }
-    }
-
-    public static void main(String[] args) {
-        KDistanceBinaryTree bn = new KDistanceBinaryTree();
-        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8};
-        TreeNode root = DiagonalTree.constructTree(arr, 0);
-
-        //random.TreeNode target = new random.TreeNode(5, );
-
-       // bn.distanceK(root, target, 3);
-
     }
 
 }
