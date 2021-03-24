@@ -3,6 +3,8 @@ package leetcode.datastructures;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://leetcode.com/problems/copy-list-with-random-pointer/
+
 public class RandomPointerList {
     static class Node {
         int val;
