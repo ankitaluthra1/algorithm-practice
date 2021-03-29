@@ -2,10 +2,10 @@ package leetcode.datastructures;
 
 import java.util.*;
 
+// https://leetcode.com/problems/word-search-ii/
+
 public class WordSearch2 {
-
     Node trie;
-
     Set<String> found;
     char[][] board;
 
