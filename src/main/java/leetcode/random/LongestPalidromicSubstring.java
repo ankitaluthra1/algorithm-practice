@@ -1,5 +1,7 @@
 package leetcode.random;
 
+//https://leetcode.com/problems/longest-palindromic-substring/
+
 public class LongestPalidromicSubstring {
 
     int maxLength = Integer.MIN_VALUE;

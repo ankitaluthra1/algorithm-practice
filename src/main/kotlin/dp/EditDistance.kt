@@ -3,7 +3,6 @@ package dp
 import kotlin.math.min
 
 class EditDistance {
-
     var word: String = ""
     var word2: String = ""
     val cache = mutableMapOf<Pair<Int, Int>, Int>()

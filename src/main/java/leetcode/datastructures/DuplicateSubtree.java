@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 // https://leetcode.com/problems/find-duplicate-subtrees/
 
 public class DuplicateSubtree {
-
     Map<String, TreeNode> visited;
     Set<String> duplicateNodes;
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {

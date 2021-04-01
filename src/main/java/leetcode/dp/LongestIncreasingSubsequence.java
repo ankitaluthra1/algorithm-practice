@@ -3,6 +3,8 @@ package leetcode.dp;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://leetcode.com/problems/longest-increasing-subsequence/
+
 public class LongestIncreasingSubsequence {
 
     Map<Integer, Integer> cache = new HashMap<>();
@@ -12,7 +14,7 @@ public class LongestIncreasingSubsequence {
             return 0;
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
-            Integer temp = getLongestIncreasingSequenceFor(i, nums);
+            int temp = getLongestIncreasingSequenceFor(i, nums);
             max = Math.max(max, temp);
         }
         return max;
