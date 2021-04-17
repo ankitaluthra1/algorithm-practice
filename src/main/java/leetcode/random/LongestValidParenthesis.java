@@ -1,9 +1,12 @@
 package leetcode.random;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-//Incomplete
+//https://leetcode.com/problems/longest-valid-parentheses/
+// incomplete
 public class LongestValidParenthesis {
 
     class Stack {
@@ -70,9 +73,21 @@ public class LongestValidParenthesis {
     }
 
     public static void main(String[] args) {
-        LongestValidParenthesis lg = new LongestValidParenthesis();
-        int result = lg.longestValidParentheses("()(()");
+//        LongestValidParenthesis lg = new LongestValidParenthesis();
+//        int result = lg.longestValidParentheses("()(()");
+//
+//        System.out.println(result);
 
-        System.out.println(result);
+        Map<Character, Integer> map1 = new HashMap<>();
+        map1.put('a', 1);
+        map1.put('b', 5);
+
+        Map<Character, Integer> map2 = new HashMap<>();
+        map2.put('a', 1);
+        map2.put('b', 15);
+
+        System.out.println(map1.hashCode()+"     "+map2.hashCode());
+        System.out.println(map1.equals(map2));
+
     }
 }
