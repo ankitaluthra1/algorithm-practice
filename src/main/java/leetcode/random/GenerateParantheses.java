@@ -3,6 +3,7 @@ package leetcode.random;
 import java.util.ArrayList;
 import java.util.List;
 
+//https://leetcode.com/problems/generate-parentheses/
 public class GenerateParantheses {
     List<String> validParenthesis;
 
