@@ -2,6 +2,7 @@ package dp
 
 import kotlin.math.min
 
+//https://leetcode.com/problems/edit-distance/
 class EditDistance {
     var word: String = ""
     var word2: String = ""
@@ -9,23 +10,18 @@ class EditDistance {
     fun minDistance(word1: String, word2: String): Int {
         word = word1
         this.word2 = word2
-
         var index1 = word1.length - 1
         var index2 = word2.length - 1
-
         if (word.length == 0)
             return this.word2.length
 
         if (this.word2.length == 0)
             return word.length
-
         val dp = dp(index1, index2)
         return dp
     }
-
     private fun dp(index1: Int, index2: Int): Int {
         val key = Pair(index1, index2)
-
         if (cache.containsKey(key)) {
             return cache[key]!!
         }
@@ -85,10 +81,8 @@ class EditDistance {
 
 fun main() {
     val editDistance = EditDistance()
-
     val word1 = readLine()!!
     val word2 = readLine()!!
-
     val result = editDistance.minDistance(word1, word2)
     println(result)
 }

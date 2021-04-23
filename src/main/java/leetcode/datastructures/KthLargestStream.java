@@ -6,7 +6,6 @@ import java.util.List;
 // https://leetcode.com/problems/kth-largest-element-in-a-stream/
 
 public class KthLargestStream {
-
     List<Integer> heap = new ArrayList<>();
     int k;
 

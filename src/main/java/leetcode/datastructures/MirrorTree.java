@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 // https://leetcode.com/problems/symmetric-tree/
-
 public class MirrorTree {
 
     public boolean isSymmetric(TreeNode root) {
         if (root == null || (root.left == null && root.right == null))
             return true;
-
         List<TreeNode> leftQueue = new ArrayList<>();
         List<TreeNode> rightQueue = new ArrayList<>();
 

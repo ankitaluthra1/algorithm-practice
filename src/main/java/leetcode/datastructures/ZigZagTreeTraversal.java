@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
-
 public class ZigZagTreeTraversal {
 
     public static TreeNode constructTree(Integer[] input, int index) {
@@ -23,19 +22,13 @@ public class ZigZagTreeTraversal {
     }
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
         if (root == null)
             return Collections.emptyList();
-
         List<TreeNode> queue = new ArrayList<>();
         queue.add(root);
-
         List<List<Integer>> output = new ArrayList<>();
-
         boolean leftToRight = true;
-
         while (!queue.isEmpty()) {
-
             List<Integer> currentList = new ArrayList<>();
             int size = queue.size();
 

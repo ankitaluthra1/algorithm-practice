@@ -2,32 +2,24 @@ package leetcode.random;
 
 import java.util.*;
 
+//https://leetcode.com/problems/word-break/
 public class WordBreak {
-
     List<String> wordDict;
     Map<String, Boolean> cache;
     Map<String, List<String>> cache2;
-
     public boolean wordBreak(String input, List<String> wordDict) {
-
         this.wordDict = wordDict;
         cache = new HashMap<>();
-
         return rec(input);
-
     }
 
     public List<String> wordBreak2(String input, List<String> wordDict) {
-
         this.wordDict = wordDict;
         cache2 = new HashMap<>();
-
         return rec2(input);
-
     }
 
     boolean rec(String current) {
-
         if (current.length() > 0) {
             if (cache.containsKey(current)) {
                 return cache.get(current);
@@ -57,15 +49,12 @@ public class WordBreak {
                 return false;
             }
         }
-
         cache.put(current, true);
         return true;
     }
 
     List<String> rec2(String current) {
-
         List<String> output = new ArrayList<>();
-
         if (current.length() > 0) {
             if (cache2.containsKey(current)) {
                 return cache2.get(current);
@@ -103,20 +92,16 @@ public class WordBreak {
                 return output;
             }
         }
-
         cache2.put(current, output);
         return output;
     }
 
     public static void main(String[] args) {
-
         WordBreak wb = new WordBreak();
         List<String> dict = Arrays.asList( "aaaa", "aa","a");
         boolean result = wb.wordBreak("catsandog", dict);
         List<String> result2 = wb.wordBreak2("aaaaaa", dict);
-
         System.out.println(result);
-
         result2.forEach(s -> System.out.println(s));
 
     }

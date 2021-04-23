@@ -1,5 +1,6 @@
 package dp
 
+//https://leetcode.com/problems/maximum-subarray/
 fun main() {
     val cases = readLine()!!.toInt()
     for (i in 0 until cases) {
@@ -15,10 +16,8 @@ fun main() {
 }
 
 class MaxSubarray(val n: Int) {
-
     lateinit var input: Array<Long>
     var cache = mutableMapOf<Int, Long>()
-
     fun input() {
         input = readLine()!!.split(" ").map { it.toLong() }.toTypedArray()
     }
@@ -35,10 +34,8 @@ class MaxSubarray(val n: Int) {
 
     fun getMaxSubArraySum(): Long {
         maxSum(0)
-
         val maxSum=  cache.values.max()!!
         return maxSum
-
     }
 
     fun printMaxSubSequenceSum(): Long {

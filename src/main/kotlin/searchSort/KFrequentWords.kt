@@ -7,27 +7,19 @@ class KFrequentWords {
     lateinit var maxHeap: Array<String>
 
     fun topKFrequent(words: Array<String>, k: Int): List<String> {
-
         for (word in words) {
             val currentCount = wordCount.getOrDefault(word, 0)
             wordCount[word] = currentCount + 1
         }
-
         maxHeap = Array(wordCount.keys.size) { "-" }
-
         wordCount.forEach { key, value ->
             println("count map: ($key, $value)")
             insertInHeap(key)
         }
-
         println(maxHeap.contentToString())
-
         val maxKStrings = mutableListOf<String>()
-
-
         for (i in 0 until k) {
             maxKStrings.add(maxHeap[0])
-
             val lastIndex = currentIndex
             maxHeap[0] = maxHeap[lastIndex]
             maxHeap = maxHeap.sliceArray(0 until lastIndex)
@@ -38,7 +30,6 @@ class KFrequentWords {
     }
 
     private fun insertInHeap(word: String) {
-
         if (currentIndex == -1) {
             currentIndex++
             maxHeap[currentIndex] = word
@@ -71,12 +62,10 @@ class KFrequentWords {
     }
 
     private fun heapifyDown(index: Int) {
-
         val leftIndex = 2 * index + 1
         val rightIndex = 2 * index + 2
 
         if (rightIndex < maxHeap.size) {
-
             val leftCount = wordCount[maxHeap[leftIndex]]!!
             val rightCount = wordCount[maxHeap[rightIndex]]!!
             val currentCount = wordCount[maxHeap[index]]!!

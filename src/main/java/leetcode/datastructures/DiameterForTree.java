@@ -1,11 +1,8 @@
 package leetcode.datastructures;
 
 // https://leetcode.com/problems/diameter-of-binary-tree/
-
 public class DiameterForTree {
-
     int maxDiameter = Integer.MIN_VALUE;
-
     public int diameterOfBinaryTree(TreeNode root) {
         maxDiameter = Integer.MIN_VALUE;
         diameterOfBinaryTree2(root);
