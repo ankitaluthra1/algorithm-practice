@@ -37,16 +37,14 @@ public class ReconstructItineary {
         }
         List<String> itineary = new ArrayList<>();
         itineary.add("JFK");
-        boolean isPossible = dfs("JFK", itineary, 0, new HashMap<>());
-//        if (!isPossible)
-//            throw new IllegalStateException("Ticket not possible");
-        return itineary;
+        return dfs("JFK", itineary, 0, new HashMap<>());
     }
 
-    boolean dfs(String src, List<String> itineary, int journeyCount,Map<String, List<String>> visited){
+    List<String> dfs(String src, List<String> itineary, int journeyCount,Map<String, List<String>> visited){
         if (!graph.containsKey(src)){
             if (journeyCount == tickets.size())
-                return true;
+                return itineary;
+            return new ArrayList<>();
         }
 
         List<String> neighbors = graph.get(src);
@@ -54,9 +52,8 @@ public class ReconstructItineary {
 
         if(isSameList(neighbors, visitedNeighbors)){
             if (journeyCount == tickets.size())
-                return true;
+                return itineary;
         }
-
         for(String neighbor : neighbors){
             if (!visitedNeighbors.contains(neighbor)) {
                 List<String> newItineary = new ArrayList<>(itineary);
@@ -65,11 +62,12 @@ public class ReconstructItineary {
                 List<String> newNeighbors = newVisited.getOrDefault(src, new ArrayList<>());
                 newNeighbors.add(neighbor);
                 newVisited.put(src, newNeighbors);
-                if (dfs(neighbor, newItineary, journeyCount + 1, newVisited))
-                    return true;
+                List<String> result = dfs(neighbor, newItineary, journeyCount + 1, newVisited);
+                if(!result.isEmpty())
+                    return result;
             }
         }
-        return false;
+        return new ArrayList<>();
     }
 
     private boolean isSameList(List<String> neighbors, List<String> visitedNeighbors) {
@@ -95,11 +93,10 @@ public class ReconstructItineary {
 
     public static void main(String[] args) {
         ReconstructItineary ri = new ReconstructItineary();
-        List<List<String>> tickets = Arrays.asList(Arrays.asList("JFK","SFO"),
-                Arrays.asList("JFK","ATL"),Arrays.asList("SFO","ATL"),
-                Arrays.asList("ATL","JFK"), Arrays.asList("ATL","SFO"));
+        List<List<String>> tickets = Arrays.asList(Arrays.asList("JFK","AAA"),
+                Arrays.asList("AAA","JFK"),Arrays.asList("JFK","BBB"), Arrays.asList("JFK","CCC"),
+                Arrays.asList("CCC","JFK"));
         List<String> result = ri.findItinerary(tickets);
-
         System.out.println(result.stream().collect(Collectors.joining(", ")));
     }
 
