@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 //https://leetcode.com/problems/reconstruct-itinerary/
-//incomplete
 public class ReconstructItineary {
     List<List<String>> tickets;
     Map<String, List<String>> graph;
@@ -40,42 +39,38 @@ public class ReconstructItineary {
         return dfs("JFK", itineary, 0, new HashMap<>());
     }
 
-    List<String> dfs(String src, List<String> itineary, int journeyCount,Map<String, List<String>> visited){
+    List<String> dfs(String src, List<String> itineary, int journeyCount,Map<String, Set<Integer>> visited){
         if (!graph.containsKey(src)){
             if (journeyCount == tickets.size())
                 return itineary;
             return new ArrayList<>();
         }
-
         List<String> neighbors = graph.get(src);
-        List<String> visitedNeighbors = visited.getOrDefault(src, new ArrayList<>());
-
+        Set<Integer> visitedNeighbors = visited.getOrDefault(src, new HashSet<>());
         if(isSameList(neighbors, visitedNeighbors)){
             if (journeyCount == tickets.size())
                 return itineary;
         }
+        int index = 0;
         for(String neighbor : neighbors){
-            if (!visitedNeighbors.contains(neighbor)) {
+            if (!visitedNeighbors.contains(index    )) {
                 List<String> newItineary = new ArrayList<>(itineary);
                 newItineary.add(neighbor);
-                Map<String, List<String>> newVisited = new HashMap<>(visited);
-                List<String> newNeighbors = newVisited.getOrDefault(src, new ArrayList<>());
-                newNeighbors.add(neighbor);
+                Map<String, Set<Integer>> newVisited = new HashMap<>(visited);
+                Set<Integer> newNeighbors = new HashSet<>(newVisited.getOrDefault(src, new HashSet<>()));
+                newNeighbors.add(index);
                 newVisited.put(src, newNeighbors);
                 List<String> result = dfs(neighbor, newItineary, journeyCount + 1, newVisited);
                 if(!result.isEmpty())
                     return result;
             }
+            index++;
         }
         return new ArrayList<>();
     }
 
-    private boolean isSameList(List<String> neighbors, List<String> visitedNeighbors) {
-        for (String s : neighbors){
-            if(!visitedNeighbors.contains(s))
-                return false;
-        }
-        return true;
+    private boolean isSameList(List<String> neighbors, Set<Integer> visitedNeighbors) {
+        return neighbors.size() == visitedNeighbors.size();
     }
 
     private int stringCompare(String first, String second){
@@ -93,9 +88,11 @@ public class ReconstructItineary {
 
     public static void main(String[] args) {
         ReconstructItineary ri = new ReconstructItineary();
-        List<List<String>> tickets = Arrays.asList(Arrays.asList("JFK","AAA"),
-                Arrays.asList("AAA","JFK"),Arrays.asList("JFK","BBB"), Arrays.asList("JFK","CCC"),
-                Arrays.asList("CCC","JFK"));
+        List<List<String>> tickets = Arrays.asList(Arrays.asList("EZE","AXA"),
+                Arrays.asList("TIA","ANU"),Arrays.asList("ANU","JFK"), Arrays.asList("JFK","ANU"),
+                Arrays.asList("ANU","EZE"), Arrays.asList("TIA","ANU"), Arrays.asList("AXA","TIA"), Arrays.asList("TIA","JFK"),
+                Arrays.asList("ANU","TIA"), Arrays.asList("JFK","TIA")
+        );
         List<String> result = ri.findItinerary(tickets);
         System.out.println(result.stream().collect(Collectors.joining(", ")));
     }
