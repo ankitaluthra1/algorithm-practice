@@ -1,8 +1,6 @@
 package leetcode.random;
 
-import java.util.ArrayList;
-import java.util.List;
-
+//https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
 public class ShipInDDays {
 
     int[] weights;
