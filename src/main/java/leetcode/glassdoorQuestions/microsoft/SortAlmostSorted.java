@@ -3,7 +3,6 @@ package leetcode.glassdoorQuestions.microsoft;
 public class SortAlmostSorted {
 
     void almostSorted(int[] arr) {
-
         int startingPos = -1;
         int endingPos = -1;
 
@@ -13,17 +12,13 @@ public class SortAlmostSorted {
                 break;
             }
         }
-
         if (startingPos == -1)
             System.out.println("yes");
-
         endingPos = checkForSwap(startingPos, arr);
-
         boolean swapFlag = false;
         if (endingPos != -1) {
             swapFlag = true;
         }
-
         if (swapFlag) {
             boolean flagSwapWorked = true;
             swap(startingPos, endingPos, arr);
