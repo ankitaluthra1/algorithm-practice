@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CoinChange {
-
     Map<CacheKey, Integer> cacheKeyMap = new HashMap<>();
 
     class CacheKey {
@@ -39,20 +38,14 @@ public class CoinChange {
     }
 
     public static void main(String[] args) throws IOException {
-
         CoinChange coinChange = new CoinChange();
-
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(System.in));
-
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int amount = Integer.parseInt(reader.readLine());
         int[] coins = Arrays.stream(reader.readLine().replace(" ", "")
                 .split(","))
                 .mapToInt(c -> Integer.parseInt(c))
                 .toArray();
-
         Integer result = coinChange.change(amount, coins);
-
         System.out.println(result);
     }
 

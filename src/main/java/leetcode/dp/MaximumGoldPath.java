@@ -2,6 +2,7 @@ package leetcode.dp;
 
 import java.util.*;
 
+//https://leetcode.com/problems/path-with-maximum-gold/
 public class MaximumGoldPath {
     class Pair<T, S>{
         T first;
