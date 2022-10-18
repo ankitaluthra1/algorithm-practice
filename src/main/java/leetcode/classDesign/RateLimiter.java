@@ -1,4 +1,4 @@
-package leetcode.random;
+package leetcode.classDesign;
 
 import java.time.Duration;
 import java.time.Instant;
