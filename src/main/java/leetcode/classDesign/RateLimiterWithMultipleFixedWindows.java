@@ -9,19 +9,47 @@ import java.util.concurrent.TimeUnit;
 
 public class RateLimiterWithMultipleFixedWindows {
     class RequestCount {
-        private Map<Integer, Integer> requestsPerSecond;
+        private Map<Integer, Map<Integer, Integer>> requestsPerMilliSecond;
 
         public RequestCount() {
-            this.requestsPerSecond = new HashMap<>();
+            this.requestsPerMilliSecond = new HashMap<>();
         }
 
-        public int getCountForSecond(int second) {
-            return requestsPerSecond.getOrDefault(second, 0);
+        public int getCountForLastSecond(int second, int milliSecond) {
+            return requestsPerMilliSecond.getOrDefault(second, new HashMap<>()).getOrDefault(milliSecond, 0);
         }
 
-        public void addCountFor(int second) {
-            int count = requestsPerSecond.getOrDefault(second, 0);
-            this.requestsPerSecond.put(second, count + 1);
+        public void addCountFor(int second, int milliSecond) {
+            if(requestsPerMilliSecond.containsKey(second) && requestsPerMilliSecond.get(second).containsKey(milliSecond)){
+                Map<Integer, Integer> countMap = requestsPerMilliSecond.get(second);
+                int count = countMap.get(milliSecond);
+                countMap.put(milliSecond, count + 1);
+                requestsPerMilliSecond.put(second, countMap);
+            }
+            //check in current second
+            for (int i = milliSecond; i > 1; i--){
+                if(requestsPerMilliSecond.containsKey(second)) {
+                    Map<Integer, Integer> countMap = requestsPerMilliSecond.get(second);
+                    if(countMap.containsKey(i)){
+                        countMap.put(milliSecond,countMap.get(i) + 1);
+                        return;
+                    }
+                }
+            }
+            // check in previous second
+            for (int i = 1000; i >= milliSecond; i--){
+                if(requestsPerMilliSecond.containsKey(second - 1)) {
+                    Map<Integer, Integer> countMap = requestsPerMilliSecond.get(second - 1);
+                    if(countMap.containsKey(i)){
+                        countMap.put(milliSecond,countMap.get(i) + 1);
+                        return;
+                    }
+                }
+            }
+            //add new entry
+            Map<Integer, Integer> millsCountMap = new HashMap<>();
+            millsCountMap.put(milliSecond, 1);
+            requestsPerMilliSecond.put(second, millsCountMap);
         }
 
     }
@@ -40,13 +68,14 @@ public class RateLimiterWithMultipleFixedWindows {
         }, 0, 1, TimeUnit.MINUTES);
     }
 
-    boolean rateLimit(int customerId) {
+    boolean rateLimit(String customerId) {
         Instant currentTime = Instant.now();
         int currentSecond = currentTime.get(ChronoField.SECOND_OF_MINUTE);
+        int currentMilliSecond = currentTime.get(ChronoField.MILLI_OF_SECOND);
         RequestCount customerRequestCount = requestCount.getOrDefault(customerId, new RequestCount());
 
-        if (customerRequestCount.getCountForSecond(currentSecond) < limitMap.get(customerId)) {
-            customerRequestCount.addCountFor(currentSecond);
+        if (customerRequestCount.getCountForLastSecond(currentSecond, currentMilliSecond) < limitMap.get(customerId)) {
+            customerRequestCount.addCountFor(currentSecond, currentMilliSecond);
             return true;
         }
 
