@@ -50,6 +50,8 @@ public class RateLimiterWithMultipleFixedWindows {
             Map<Integer, Integer> millsCountMap = new HashMap<>();
             millsCountMap.put(milliSecond, 1);
             requestsPerMilliSecond.put(second, millsCountMap);
+
+            //add credits here as new second is added here
         }
 
     }
