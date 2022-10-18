@@ -9,20 +9,21 @@ import java.util.concurrent.TimeUnit;
 
 public class RateLimiterWithMultipleFixedWindows {
     class RequestCount {
-        private Map<Integer, Integer> requestCountMap;
+        private Map<Integer, Integer> requestsPerSecond;
 
         public RequestCount() {
-            this.requestCountMap = new HashMap<>();
+            this.requestsPerSecond = new HashMap<>();
         }
 
         public int getCountForSecond(int second) {
-            return requestCountMap.getOrDefault(second, 0);
+            return requestsPerSecond.getOrDefault(second, 0);
         }
 
         public void addCountFor(int second) {
-            int count = requestCountMap.getOrDefault(second, 0);
-            this.requestCountMap.put(second, count + 1);
+            int count = requestsPerSecond.getOrDefault(second, 0);
+            this.requestsPerSecond.put(second, count + 1);
         }
+
     }
 
     Map<String, Integer> limitMap;
