@@ -58,11 +58,24 @@ class File {
         this.name = name;
         this.size = size;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return this.name.equals(((File) o).name);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
 }
 
 class InputParser {
 
+    public static final String DEFAULT = "DEFAULT";
+
     public static List<Collection> parse(String[] input) {
+
         Map<String, Collection> collectionMap = new HashMap<>();
         for (String s : input) {
             String[] split = s.replaceAll(" ", "").split(",");
@@ -75,6 +88,10 @@ class InputParser {
                     collection.addFiles(filename, size);
                     collectionMap.put(c, collection);
                 }
+            } else {
+                Collection collection = collectionMap.getOrDefault(DEFAULT, new Collection(DEFAULT));
+                collection.addFiles(filename, size);
+                collectionMap.put(DEFAULT, collection);
             }
         }
 
@@ -91,9 +108,20 @@ public class FileCollection {
         for (int i = 0; i < k; i++) {
             Collection first = iterator.next();
             String name = first.name;
+            if (InputParser.DEFAULT.equals(name)) {
+                i--;
+                continue;
+            }
             collections.add(name);
         }
         return collections;
+    }
+
+    public Integer findTotalFileSize(String[] input) {
+        List<Collection> collections = InputParser.parse(input);
+        Set<File> files = collections.stream().flatMap(c -> c.files.stream()).collect(Collectors.toSet());
+        Integer sum = files.stream().map(f -> f.size).reduce(0, (acc, size) -> acc + size);
+        return sum;
     }
 
 }
