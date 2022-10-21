@@ -23,7 +23,7 @@ class Person {
 public class OnlineElection {
 
     Map<Integer, Person> voteCount = new HashMap<>();
-    SortedMap<Integer, Person> leaderPerTime = new TreeMap<>();
+    LinkedHashMap<Integer, Person> leaderPerTime = new LinkedHashMap<>();
     Person leader = null;
     public OnlineElection(int[] persons, int[] times) {
 
