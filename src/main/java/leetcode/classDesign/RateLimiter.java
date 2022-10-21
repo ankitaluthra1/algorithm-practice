@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-// Rate limit for X requests per Y mins per client
+// Rate limit for X requests per Y seconds per client
 public class RateLimiter {
 
     class Threshold {

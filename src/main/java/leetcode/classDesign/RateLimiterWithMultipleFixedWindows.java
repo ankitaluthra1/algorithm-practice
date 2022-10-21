@@ -29,7 +29,7 @@ public class RateLimiterWithMultipleFixedWindows {
                 requestsPerMilliSecond.put(second, countMap);
             }
             //check in current second
-            for (int i = milliSecond; i > 1; i--){
+            for (int i = milliSecond-1; i >= 1; i--){
                 if(requestsPerMilliSecond.containsKey(second)) {
                     Map<Integer, Integer> countMap = requestsPerMilliSecond.get(second);
                     if(countMap.containsKey(i)){
@@ -69,7 +69,7 @@ public class RateLimiterWithMultipleFixedWindows {
             synchronized (requestCount) {
                 requestCount = new HashMap<>();
             }
-        }, 0, 1, TimeUnit.MINUTES);
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     boolean rateLimit(String customerId) {
