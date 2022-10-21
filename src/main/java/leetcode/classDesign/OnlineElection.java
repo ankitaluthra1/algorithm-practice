@@ -2,6 +2,8 @@ package leetcode.classDesign;
 
 import java.util.*;
 
+//https://leetcode.com/problems/online-election/
+
 class Person {
     final int name;
     int count;
@@ -50,7 +52,9 @@ public class OnlineElection {
         if (leaderPerTime.containsKey(t))
             return leaderPerTime.get(t).name;
         int key = search(leaderPerTime.keySet(), t);
-        return leaderPerTime.get(key).name;
+        Person person = leaderPerTime.get(key);
+        leaderPerTime.put(key, person);
+        return person.name;
     }
 
     private int search(Set<Integer> set, int term) {
@@ -58,6 +62,9 @@ public class OnlineElection {
     }
 
     private int binarySearch(List<Integer> list, int term, int start, int end) {
+        if(list.get(end) < term){
+             return list.get(end);
+        }
         if(end - start == 1|| end == start)
             return list.get(start);
         int mid = (end + start) / 2;

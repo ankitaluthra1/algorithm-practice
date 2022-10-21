@@ -52,10 +52,10 @@ class OnlineElectionTest {
 
     @Test
     public void shouldGiveLeaderForGivenTimeVoteInput() {
-        assertEquals(0, onlineElection.q(3));
         assertEquals(1, onlineElection.q(12));
-        assertEquals(1, onlineElection.q(25));
-        assertEquals(0, onlineElection.q(15));
+        assertEquals(0, onlineElection.q(4));
+        assertEquals(1, onlineElection.q(11));
+        assertEquals(1, onlineElection.q(29));
     }
 
 }
