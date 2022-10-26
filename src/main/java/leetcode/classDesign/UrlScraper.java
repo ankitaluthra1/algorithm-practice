@@ -1,7 +1,7 @@
 package leetcode.classDesign;
 
 /*
-* Design a scraper service that takes as input an array of urls of web pages. For each url, save every image link in the html document. Any other links on the page, follow them and recursively get the images on those pages too.
+* Design a scraper service (web crawler) that takes as input an array of urls of web pages. For each url, save every image link in the html document. Any other links on the page, follow them and recursively get the images on those pages too.
 *
 * */
 
