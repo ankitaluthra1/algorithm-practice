@@ -7,7 +7,26 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-// Rate limit for X requests per Y seconds per client
+/*
+* Imagine we are building an application that is used by many different customers. We want to avoid one customer being able to overload the system by sending too many requests, so we enforce a per-customer rate limit. The rate limit is defined as:
+
+“Each customer can make X requests per Y seconds”
+
+Assuming that customer ID is extracted somehow from the request, implement the following function.
+
+
+// Perform rate limiting logic for provided customer ID. Return true if the
+// request is allowed, and false if it is not.
+* Extension
+*
+* one of our customers have bursty traffic, and are complaining about being rate limited. We want to better accomodate those customers, so we want to adopt a ‘credit’ based system. It will work as follows:
+
+For each bucket of time, any capacity available below the limit is converted into credits for that customer
+
+There is some maximum number of credits that a customer can accumulate
+
+When a customer exceeds their normal request limit for a window, the credit count starts to decrease. When there are 0 credits, the customer is rate limited.
+* */
 public class RateLimiter {
 
     public RateLimiter(Map<String, Threshold> customerThresholdMap) {

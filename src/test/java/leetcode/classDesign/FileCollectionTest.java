@@ -14,8 +14,9 @@ class FileCollectionTest {
         String[] input = {"file1.txt, 100",
                 "file2.txt, 100, [Collection1]",
                 "file3.txt, 100, [Collection1]",
-                "file4.txt, 100, [Collection2]",
-                "file5.txt, 100"
+                "file4.txt, 100, [Collection1]",
+                "file5.txt, 100, [Collection2]",
+                "file6.txt, 100, [Collection2]"
         };
         FileCollection fileCollection = new FileCollection();
         List<String> topKCollections = fileCollection.findTopKCollections(input, 2);

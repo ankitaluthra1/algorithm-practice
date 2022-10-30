@@ -102,19 +102,13 @@ class InputParser {
 public class FileCollection {
 
     public List<String> findTopKCollections(String[] input, int k) {
-        SortedSet<Collection> sortedCollections = new TreeSet<>(InputParser.parse(input));
-        List<String> collections = new ArrayList<>();
-        Iterator<Collection> iterator = sortedCollections.iterator();
+        PriorityQueue<Collection> sortedCollections = new PriorityQueue<>();
+        sortedCollections.addAll(InputParser.parse(input));
+        List<String> result = new ArrayList<>();
         for (int i = 0; i < k; i++) {
-            Collection first = iterator.next();
-            String name = first.name;
-            if (InputParser.DEFAULT.equals(name)) {
-                i--;
-                continue;
-            }
-            collections.add(name);
+            result.add(sortedCollections.poll().name);
         }
-        return collections;
+        return result;
     }
 
     public Integer findTotalFileSize(String[] input) {
